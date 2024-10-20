@@ -79,6 +79,14 @@ class Mission:
         # Use pandas to read data from the CSV file
         data = pd.read_csv(file_name)
 
+        # Extract the necessary columns in data and convert them into Numpay Arrays
+        reference = data['reference'].to_numpy()
+        cave_height = data['cave_height'].to_numpy()
+        cave_depth = data['cave_depth'].to_numpy()
+
+        # Return an instance of the Mission class
+        return cls(reference, cave_height, cave_depth)
+
 
 class ClosedLoop:
     def __init__(self, plant: Submarine, controller):
