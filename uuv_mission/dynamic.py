@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import numpy as np
 import matplotlib.pyplot as plt
-from .terrain import generate_reference_and_limits
+from terrain import generate_reference_and_limits
 import pandas as pd
 
 class Submarine:
@@ -111,7 +111,7 @@ class ClosedLoop:
             reference_t = mission.reference[t]
 
             # Get the control action based on current reference depth and output depth
-            actions[t] = self.controller.compute_action(refernce = reference_t, output = observation_t)
+            actions[t] = self.controller.compute_action(reference = reference_t, output = observation_t)
 
             # Apply the control action to the plant
             self.plant.transition(actions[t], disturbances[t])
