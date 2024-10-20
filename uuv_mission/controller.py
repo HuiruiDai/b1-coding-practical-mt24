@@ -16,3 +16,23 @@ class PDController:
         self.kp = kp
         self.kd = kd
         self.previous_error = 0
+        
+    def compute_action(self, reference: float, output: float) -> float:
+        """
+        Compute the control action based on the PD control law.
+        
+        :param reference: The desired reference (setpoint) at time t (r[t])
+        :param output: The current system output (depth) at time t (y[t])
+        :return: Control action u[t] at time t
+        """
+        error = reference - output  # e[t] = r[t] - y[t]
+        derivative = error - self.previous_error  # find derivative based on difference between e[t] and e[t-1]
+
+        # PD control law
+        control_action = self.kp * error + self.kd * derivative
+        
+        # Update previous error for the next time step
+        self.previous_error = error
+
+        # return calculated control action for current time step
+        return control_action
